@@ -3,6 +3,21 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+  
+  
+  
+    <form action="/sign" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Post message">
+	  
+	  {% if url_linktext == 'Login' %}
+	  <a href="#openModal">Login</a>
+	  {% else %}
+	  <a href="{{ url }}">{{ url_linktext }}</a>
+	  {% endif %}
+	  </div>
+    </form>
+  
     {% for greeting in greetings %}
       {% if greeting.author %}
         <b>{{ greeting.author.nickname }}</b> wrote:
@@ -12,12 +27,37 @@
       <blockquote>{{ greeting.content|escape }}</blockquote>
     {% endfor %}
 
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
 
-    <a href="{{ url }}">{{ url_linktext }}</a>
+<div id="openModal" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<center><h2>Login Box</h2></center>
+		
+		<form method="get" action="/_ah/login" style="text-align:center; font: 13px sans-serif">
+  <div style="width: 20em; margin: 1em auto;
+              text-align:left;
+              padding: 0 2em 1.25em 2em;
+              background-color: #d6e9f8;
+              border: 2px solid #67a7e3">
+    <h3>Not logged in</h3>
+    <p style="padding: 0; margin: 0">
+      <label for="email" style="width: 3em">Email:</label>
+      <input name="email" type="email" value="test@example.com" id="email">
+    </p>
+    <p style="margin: .5em 0 0 3em; font-size:12px">
+      <input name="admin" type="checkbox" value="True" id="admin">
+        <label for="admin">Sign in as Administrator</label>
+    </p>
+    <p style="margin-left: 3em">
+      <input name="action" value="Login" type="submit" id="submit-login">
+      <input name="action" value="Logout" type="submit" id="submit-logout">
+    </p>
+  </div>
+  <input name="continue" type="hidden" value="../">
+</form>
+		
+	</div>
+</div>
 
   </body>
 </html>
